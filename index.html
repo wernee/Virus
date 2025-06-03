@@ -2,117 +2,130 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iOS Virenwarnung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iPhone Warnung</title>
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #f2f2f2;
       margin: 0;
-      padding: 0;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-    }
-
-    .popup {
-      background: white;
-      border-radius: 14px;
-      width: 90%;
-      max-width: 300px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f9f9f9;
+      color: #111;
       text-align: center;
-      padding: 20px;
+      padding: 30px 20px;
     }
 
-    .popup h2 {
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
       font-size: 20px;
-      margin-bottom: 10px;
+      color: red;
+      margin-bottom: 15px;
     }
 
-    .popup p {
+    p {
       font-size: 16px;
-      color: #333;
+      line-height: 1.5;
+      text-align: left;
     }
 
-    .buttons {
-      margin-top: 20px;
-      display: flex;
-      gap: 10px;
-      justify-content: center;
+    .timer {
+      font-size: 22px;
+      font-weight: bold;
+      color: #d60000;
+      margin: 20px 0;
     }
 
-    .buttons button {
-      flex: 1;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .ok {
+    button {
       background: #007aff;
       color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-size: 17px;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
     }
 
-    .help {
-      background: #e0e0e0;
+    button:hover {
+      background: #005edb;
     }
 
-    .message {
+    .prank {
       display: none;
-      font-size: 20px;
-      text-align: center;
-      margin-top: 50px;
-      color: red;
+      font-size: 22px;
+      margin-top: 40px;
+      color: green;
+    }
+
+    .ios-bar {
+      height: 35px;
+      background: #f0f0f0;
+      border-bottom: 1px solid #ccc;
+      margin: -30px -20px 20px -20px;
+      padding-top: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      color: #666;
     }
   </style>
 </head>
 <body>
 
-<div class="overlay" id="popup">
-  <div class="popup">
-    <h2>Gerät wird gescannt...</h2>
-    <p>Bitte warten...</p>
-  </div>
-</div>
+  <div class="container">
+    <div class="ios-bar">iPhone Sicherheitssystem</div>
 
-<div class="overlay" id="virusAlert" style="display: none;">
-  <div class="popup">
-    <h2>⚠️ 39 Viren entdeckt!</h2>
-    <p>Ihr iPhone ist stark beschädigt und wird langsamer. Bitte handeln Sie sofort!</p>
-    <div class="buttons">
-      <button class="ok" onclick="showPrank()">OK</button>
-      <button class="help" onclick="showPrank()">Was kann ich tun?</button>
+    <h1>⚠️ (7) Viren entdeckt</h1>
+    <p>
+      Auf dem iPhone wurden Viren entdeckt, und die Batterie könnte betroffen und beschädigt sein.<br><br>
+      Wenn diese Malware nicht sofort gelöscht wird, könnte es zu weiteren Beeinträchtigungen auf Ihrem Gerät kommen.<br><br>
+      <strong>So entfernen Sie die Malware:</strong><br>
+      Schritt 1: Tippen Sie unten auf den Button, und installieren Sie gratis das empfohlene Virus-Schutz-Tool vom App-Store.<br>
+      Schritt 2: Starten Sie die App, und drücken Sie auf den „JETZT GRATIS STARTEN"-Button, um alle Malware zu entfernen und so Ihr Mobiltelefon zu 100 % zu reparieren.
+    </p>
+
+    <div class="timer" id="timer">05:00</div>
+
+    <button onclick="showPrank()">Download und Installieren</button>
+
+    <div class="prank" id="prankMsg">
+      😄 Keine Sorge – it's a prank!
     </div>
   </div>
-</div>
 
-<div class="message" id="prankMsg">
-  🤪 It's a prank, Bro.
-</div>
+  <script>
+    // Countdown-Timer: 5 Minuten
+    let timeLeft = 300; // Sekunden
 
-<script>
-  // Simulierter Scan → zeigt nach 2 Sekunden den Virus-Popup
-  setTimeout(() => {
-    document.getElementById('popup').style.display = 'none';
-    document.getElementById('virusAlert').style.display = 'flex';
-  }, 2000);
+    function updateTimer() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      document.getElementById('timer').innerText =
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-  function showPrank() {
-    document.getElementById('virusAlert').style.display = 'none';
-    document.getElementById('prankMsg').style.display = 'block';
-  }
-</script>
+      if (timeLeft > 0) {
+        timeLeft--;
+        setTimeout(updateTimer, 1000);
+      }
+    }
+
+    updateTimer();
+
+    function showPrank() {
+      document.querySelector('button').style.display = 'none';
+      document.getElementById('prankMsg').style.display = 'block';
+      document.getElementById('timer').style.display = 'none';
+    }
+  </script>
 
 </body>
 </html>
