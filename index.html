@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iOS Virenwarnung</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .popup {
+      background: white;
+      border-radius: 14px;
+      width: 90%;
+      max-width: 300px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      text-align: center;
+      padding: 20px;
+    }
+
+    .popup h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .popup p {
+      font-size: 16px;
+      color: #333;
+    }
+
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .buttons button {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .ok {
+      background: #007aff;
+      color: white;
+    }
+
+    .help {
+      background: #e0e0e0;
+    }
+
+    .message {
+      display: none;
+      font-size: 20px;
+      text-align: center;
+      margin-top: 50px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="popup">
+  <div class="popup">
+    <h2>Gerät wird gescannt...</h2>
+    <p>Bitte warten...</p>
+  </div>
+</div>
+
+<div class="overlay" id="virusAlert" style="display: none;">
+  <div class="popup">
+    <h2>⚠️ 39 Viren entdeckt!</h2>
+    <p>Ihr iPhone ist stark beschädigt und wird langsamer. Bitte handeln Sie sofort!</p>
+    <div class="buttons">
+      <button class="ok" onclick="showPrank()">OK</button>
+      <button class="help" onclick="showPrank()">Was kann ich tun?</button>
+    </div>
+  </div>
+</div>
+
+<div class="message" id="prankMsg">
+  🤪 It's a prank, Bro.
+</div>
+
+<script>
+  // Simulierter Scan → zeigt nach 2 Sekunden den Virus-Popup
+  setTimeout(() => {
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('virusAlert').style.display = 'flex';
+  }, 2000);
+
+  function showPrank() {
+    document.getElementById('virusAlert').style.display = 'none';
+    document.getElementById('prankMsg').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
